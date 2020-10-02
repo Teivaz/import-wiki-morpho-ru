@@ -7,8 +7,6 @@ RE_MORPHOLOGY = re.compile(r'^{{морфо-ru\|(.*)}}$', re.MULTILINE)
 XMLNS = '{http://www.mediawiki.org/xml/export-0.10/}'
 
 IN_FILE = 'ruwiktionary-latest-pages-articles.xml.bz2'
-#IN_FILE = 'ruwiktionary-test.xml'
-OUT_FILE = 'ruwiktionary.csv'
 
 def iter_posts(filename):
 	if filename.endswith('.bz2'):
@@ -64,13 +62,6 @@ def parse_page_rev(result):
 		if elem.tag == XMLNS+'id':
 			result['rev_id'] = elem.text
 	return fn
-
-'''
-with open(OUT_FILE, 'w') as fp:
-	fp.write('id,ns,title,rev_id,morphology\n')
-	for page in iter_posts(IN_FILE):
-		fp.write('{id},{ns},{title},{rev_id},{morphology}\n'.format(**page))
-'''
 
 connection = mysql.connector.connect(user='wikidata', password='', host='127.0.0.1', database='wikidata', port=3406)
 cursor = connection.cursor()
